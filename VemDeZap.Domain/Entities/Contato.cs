@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using VemDeZap.Domain.Entities.Base;
+using VemDeZap.Domain.Enums;
 
 namespace VemDeZap.Domain.Entities
 {
@@ -12,6 +13,6 @@ namespace VemDeZap.Domain.Entities
         public string Nome { get; set; }
         public string Telefone { get; set; }
 
-        public int Nicho { get; set; }
+        public EnumNicho Nicho { get; set; }
     }
 }
