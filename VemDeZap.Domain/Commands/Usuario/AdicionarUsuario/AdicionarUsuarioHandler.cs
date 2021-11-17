@@ -11,11 +11,13 @@ namespace VemDeZap.Domain.Commands.Usuario.AdicionarUsuario
 {
     public class AdicionarUsuarioHandler : Notifiable , IRequestHandler<AdicionarUsuarioRequest, Response>
     {
+        private readonly IMediator _mediator;
         private readonly IRepositoryUsuario _repositorioUsuario;
 
-        public AdicionarUsuarioHandler(IRepositoryUsuario repositorioUsuario)
+        public AdicionarUsuarioHandler(IRepositoryUsuario repositorioUsuario, IMediator mediator)
         {
-            _repositorioUsuario = repositorioUsuario;
+             _mediator = mediator;
+             _repositorioUsuario = repositorioUsuario;
         }
 
         public async Task<Response> Handle(AdicionarUsuarioRequest request, CancellationToken cancellationToken)
@@ -33,14 +35,27 @@ namespace VemDeZap.Domain.Commands.Usuario.AdicionarUsuario
                 return new Response(this);
             }
 
-            Entities.Usuario usuario = new Entities.Usuario();
+            Entities.Usuario usuario = new Entities.Usuario(request.PrimeiroNome, request.UltimoNome, request.Email, request.Senha);
 
-            usuario.PrimeiroNome = request.PrimeiroNome;
-            usuario.UltimoNome = request.UltimoNome;
-            usuario.Email = request.Email;
-            usuario.Senha = request.Senha;
+            AddNotifications(usuario);
 
-            _repositorioUsuario.Adicionar(usuario);
+            if (IsInvalid())
+            {
+                return new Response(this);
+            }
+
+            usuario = _repositorioUsuario.Adicionar(usuario);
+
+            //Crir objeto de resposta
+
+            var response = new Response(this, usuario);
+
+            AdicionarUsuarioNotification adicionarUsuarioNotification = new AdicionarUsuarioNotification(usuario);
+
+            await _mediator.Publish(adicionarUsuarioNotification);
+
+            return await Task.FromResult(response);
+            
         }
     }
 }
