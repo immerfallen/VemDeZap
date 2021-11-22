@@ -55,7 +55,7 @@ namespace VemDeZap.Api
             app.UseMvc();
             //cria a documentacao da api de forma automatica
             app.UseSwagger();
-            app.UseSwaggerUi(c =>
+            app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "VemDeZap - V1");
             });

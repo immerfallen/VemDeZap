@@ -11,7 +11,7 @@ using System.Reflection;
 using VemDeZap.Api.Security;
 using VemDeZap.Domain.Commands.Usuario.AdicionarUsuario;
 using VemDeZap.Domain.Interfaces.Repositories;
-
+using VemDeZap.Infra.Repositories;
 
 namespace VemDeZap.Api
 {
@@ -113,7 +113,7 @@ namespace VemDeZap.Api
 
             //services.AddTransient<IUnitOfWork, UnitOfWork>();
 
-           // services.AddTransient<IRepositoryUsuario, RespositoryUsuario>();
+            services.AddTransient<IRepositoryUsuario, RepositoryUsuario>();
             
         }
 
