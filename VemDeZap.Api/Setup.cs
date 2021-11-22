@@ -8,6 +8,7 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.Reflection;
+using VemDeZap.Api.Security;
 using VemDeZap.Domain.Commands.Usuario.AdicionarUsuario;
 using VemDeZap.Domain.Interfaces.Repositories;
 
@@ -112,7 +113,7 @@ namespace VemDeZap.Api
 
             //services.AddTransient<IUnitOfWork, UnitOfWork>();
 
-            services.AddTransient<IRepositoryUsuario, RespositoryUsuario>();
+           // services.AddTransient<IRepositoryUsuario, RespositoryUsuario>();
             
         }
 
