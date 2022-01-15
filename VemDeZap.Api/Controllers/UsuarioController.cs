@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace VemDeZap.Api.Controllers
 {
-    public class TesteController : Controller
+    public class UsuarioController : Controller
     {
-        public string Get()
-        {
-            return "1.0.0";
-        }
+        
     }
 }
