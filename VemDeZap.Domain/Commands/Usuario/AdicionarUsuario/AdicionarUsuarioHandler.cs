@@ -9,7 +9,7 @@ using VemDeZap.Domain.Interfaces.Repositories;
 
 namespace VemDeZap.Domain.Commands.Usuario.AdicionarUsuario
 {
-    public class AdicionarUsuarioHandler : Notifiable , IRequestHandler<AdicionarUsuarioRequest, Response>
+    public class AdicionarUsuarioHandler : Notifiable , IRequestHandler<AdicionarUsuarioRequest, AutenticarUsuarioResponse>
     {
         private readonly IMediator _mediator;
         private readonly IRepositoryUsuario _repositorioUsuario;
@@ -20,19 +20,19 @@ namespace VemDeZap.Domain.Commands.Usuario.AdicionarUsuario
              _repositorioUsuario = repositorioUsuario;
         }
 
-        public async Task<Response> Handle(AdicionarUsuarioRequest request, CancellationToken cancellationToken)
+        public async Task<AutenticarUsuarioResponse> Handle(AdicionarUsuarioRequest request, CancellationToken cancellationToken)
         {
             //Validar se request veio preenchido
             if (request == null)
             {
                 AddNotification("Request", "Informe os dados do usuário");
-                return new Response(this);
+                return new AutenticarUsuarioResponse(this);
             }
             // Verificar se o usuário já existe
             if (_repositorioUsuario.Existe(x=>x.Email==request.Email))
             {
                 AddNotification("Email", "E-mail já cadastrado no sistema");
-                return new Response(this);
+                return new AutenticarUsuarioResponse(this);
             }
 
             Entities.Usuario usuario = new Entities.Usuario(request.PrimeiroNome, request.UltimoNome, request.Email, request.Senha);
@@ -41,14 +41,14 @@ namespace VemDeZap.Domain.Commands.Usuario.AdicionarUsuario
 
             if (IsInvalid())
             {
-                return new Response(this);
+                return new AutenticarUsuarioResponse(this);
             }
 
             usuario = _repositorioUsuario.Adicionar(usuario);
 
             //Crir objeto de resposta
 
-            var response = new Response(this, usuario);
+            var response = new AutenticarUsuarioResponse(this, usuario);
 
             AdicionarUsuarioNotification adicionarUsuarioNotification = new AdicionarUsuarioNotification(usuario);
 

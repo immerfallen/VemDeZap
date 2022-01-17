@@ -5,7 +5,7 @@ using System.Text;
 
 namespace VemDeZap.Domain.Commands.Usuario.AdicionarUsuario
 {
-    public class AdicionarUsuarioRequest : IRequest<Response>
+    public class AdicionarUsuarioRequest : IRequest<AutenticarUsuarioResponse>
     {
         public string PrimeiroNome { get; set; }
         public string UltimoNome { get; set; }

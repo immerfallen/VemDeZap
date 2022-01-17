@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 namespace VemDeZap.Domain.Commands
 {
-    public class Response
+    public class AutenticarUsuarioResponse
     {
-        public Response(INotifiable notifiable)
+        public AutenticarUsuarioResponse(INotifiable notifiable)
         {
             this.Success = notifiable.IsValid();
             this.Notifications = notifiable.Notifications;
         }
-        public Response(INotifiable notifiable, object data)
+        public AutenticarUsuarioResponse(INotifiable notifiable, object data)
         {
             this.Success = notifiable.IsValid();
             this.Data = data;

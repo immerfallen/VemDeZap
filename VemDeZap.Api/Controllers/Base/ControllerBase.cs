@@ -19,7 +19,7 @@ namespace VemDeZap.Api.Controllers.Base
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IActionResult> ResponseAsync(Response response)
+        public async Task<IActionResult> ResponseAsync(AutenticarUsuarioResponse response)
         {
             if (!response.Notifications.Any())
             {
