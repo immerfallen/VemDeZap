@@ -12,6 +12,8 @@ using VemDeZap.Api.Security;
 using VemDeZap.Domain.Commands.Usuario.AdicionarUsuario;
 using VemDeZap.Domain.Interfaces.Repositories;
 using VemDeZap.Infra.Repositories;
+using VemDeZap.Infra.Repositories.Base;
+using VemDeZap.Infra.Repositories.Transactions;
 
 namespace VemDeZap.Api
 {
@@ -109,9 +111,9 @@ namespace VemDeZap.Api
 
         public static void ConfigureRepositories(this IServiceCollection services)
         {
-            //services.AddScoped<VemDeZapContext, VemDeZapContext>();
+            services.AddScoped<VemDeZapContext, VemDeZapContext>();
 
-            //services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             services.AddTransient<IRepositoryUsuario, RepositoryUsuario>();
             
